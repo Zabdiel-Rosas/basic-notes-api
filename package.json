@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Zabdiel-Rosas/basic-notes-api/issues"
   },
-  "homepage": "https://github.com/Zabdiel-Rosas/basic-notes-api#readme"
+  "homepage": "https://github.com/Zabdiel-Rosas/basic-notes-api#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
