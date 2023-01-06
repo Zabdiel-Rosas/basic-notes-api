@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
 
+// Parses incoming requests with JSON payloads
+app.use(express.json())
+
 let notes = [
   {
     id: 1,
@@ -28,9 +31,38 @@ app.get('/', (request, response) => {
   response.send('<h1>Hello From Express Web Server!</h1>')
 })
 
-// Get All Notes Resource
+// Post Note Resource
+app.post('api/notes', (request, response) => {
+  const note = request.body
+  console.log(note)
+  response.json(note)
+})
+
+// Get All Notes Resources
 app.get('/api/notes', (request, response) => {
   response.json(notes)
+})
+
+// Fetching a single Note Resourse
+app.get('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id)
+  const note = notes.find(note => {
+    return note.id === id
+  })
+
+  if (note) {
+    response.json(note)
+  } else {
+    response.status(400).end()
+  }
+})
+
+// Deleting Resources
+app.delete('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id)
+  notes = notes.filter(note => note.id !== id)
+
+  response.status(204).end()
 })
 
 const PORT = 3001
