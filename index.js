@@ -28,9 +28,23 @@ app.get('/', (request, response) => {
   response.send('<h1>Hello From Express Web Server!</h1>')
 })
 
-// Get All Notes Resource
+// Get All Notes Resources
 app.get('/api/notes', (request, response) => {
   response.json(notes)
+})
+
+// Fetching a single Note Resourse
+app.get('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id)
+  const note = notes.find(note => {
+    return note.id === id
+  })
+
+  if (note) {
+    response.json(note)
+  } else {
+    response.status(400).end()
+  }
 })
 
 const PORT = 3001
